@@ -1,1 +1,70 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h2 style="text-align:center;">Admin Panel</h2>
+
+<div class="admin-container">
+
+<input id="name" placeholder="Tool Name">
+<input id="category" placeholder="Category">
+<input id="url" placeholder="URL">
+<input id="desc" placeholder="Description">
+
+<button onclick="addTool()">Add Tool</button>
+
+<hr>
+
+<div id="list"></div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script>
+const supabase = supabase.createClient(
+"https://dpjmlasbomyleogiimmy.supabase.co",
+"YOUR_PUBLISHABLE_KEY"
+);
+
+async function load(){
+const { data } = await supabase.from("tools").select("*");
+
+document.getElementById("list").innerHTML =
+data.map(t => `
+<div class="card">
+<h3>${t.name}</h3>
+<p>${t.category}</p>
+<a href="${t.url}" target="_blank">Open</a>
+<button onclick="del('${t.id}')">Delete</button>
+</div>
+`).join("");
+}
+
+async function addTool(){
+await supabase.from("tools").insert([{
+name: name.value,
+category: category.value,
+url: url.value,
+description: desc.value
+}]);
+
+load();
+}
+
+async function del(id){
+await supabase.from("tools").delete().eq("id", id);
+load();
+}
+
+load();
+</script>
+
+</body>
+</html>

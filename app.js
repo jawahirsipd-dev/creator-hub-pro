@@ -1,33 +1,44 @@
+import { supabase } from "./supabase.js";
 
-import supabase from "./supabase.js";
+const toolList = document.getElementById("toolList");
 
-const toolsBox = document.getElementById("tools");
-
-let tools = [];
-
+// LOAD TOOLS
 async function loadTools() {
   const { data } = await supabase.from("tools").select("*");
-
-  tools = data;
-  render(tools);
+  render(data);
 }
 
-function render(list){
-  toolsBox.innerHTML = list.map(t => `
+// RENDER LIST
+function render(tools) {
+  toolList.innerHTML = tools.map(t => `
     <div class="card">
       <h3>${t.name}</h3>
-      <p>${t.description}</p>
+      <p>${t.category}</p>
       <a href="${t.url}" target="_blank">Open</a>
+      <button onclick="deleteTool('${t.id}')">Delete</button>
     </div>
   `).join("");
 }
 
-document.getElementById("search").addEventListener("input",(e)=>{
-  const value = e.target.value.toLowerCase();
-  const filtered = tools.filter(t =>
-    t.name.toLowerCase().includes(value)
-  );
-  render(filtered);
-});
+// ADD TOOL
+window.addTool = async function () {
+  const name = document.getElementById("name").value;
+  const category = document.getElementById("category").value;
+  const url = document.getElementById("url").value;
+  const description = document.getElementById("desc").value;
+
+  await supabase.from("tools").insert([
+    { name, category, url, description }
+  ]);
+
+  alert("Tool Added!");
+  loadTools();
+}
+
+// DELETE TOOL
+window.deleteTool = async function(id) {
+  await supabase.from("tools").delete().eq("id", id);
+  loadTools();
+}
 
 loadTools();

@@ -1,30 +1,122 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Admin Panel</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - Creator Hub Pro</title>
+
 <link rel="stylesheet" href="style.css">
+
+<style>
+body{
+margin:0;
+background:#050816;
+color:white;
+font-family:Arial;
+}
+
+.sidebar{
+width:220px;
+height:100vh;
+position:fixed;
+left:0;
+top:0;
+background:#0f172a;
+padding:20px;
+}
+
+.sidebar h2{
+color:#7c3aed;
+}
+
+.main{
+margin-left:240px;
+padding:30px;
+}
+
+.card{
+background:#111827;
+padding:15px;
+border-radius:12px;
+margin:10px 0;
+}
+
+input, textarea{
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:8px;
+border:none;
+background:#1f2937;
+color:white;
+}
+
+button{
+padding:10px 15px;
+background:#7c3aed;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+margin-top:10px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+@media(max-width:768px){
+.sidebar{display:none;}
+.main{margin:0;}
+.grid{grid-template-columns:1fr;}
+}
+</style>
+
 </head>
 
 <body>
 
-<h2 style="text-align:center;">Admin Panel</h2>
-
-<div class="admin-container">
-
-<input id="name" placeholder="Tool Name">
-<input id="category" placeholder="Category">
-<input id="url" placeholder="URL">
-<input id="desc" placeholder="Description">
-
-<button onclick="addTool()">Add Tool</button>
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h2>Creator Hub Pro</h2>
+<p>Admin Panel</p>
 
 <hr>
 
-<div id="list"></div>
+<p>📊 Dashboard</p>
+<p>➕ Add Tools</p>
+<p>🗑 Manage Tools</p>
 
 </div>
 
+<!-- MAIN -->
+<div class="main">
+
+<h1>Admin Dashboard</h1>
+
+<!-- ADD TOOL -->
+<div class="card">
+<h3>Add New Tool</h3>
+
+<input id="name" placeholder="Tool Name">
+<input id="category" placeholder="Category">
+<input id="url" placeholder="Tool URL">
+<textarea id="desc" placeholder="Description"></textarea>
+
+<button onclick="addTool()">Add Tool</button>
+</div>
+
+<!-- TOOLS LIST -->
+<div class="card">
+<h3>All Tools</h3>
+<div id="list"></div>
+</div>
+
+</div>
+
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <script>
@@ -41,13 +133,19 @@ data.map(t => `
 <div class="card">
 <h3>${t.name}</h3>
 <p>${t.category}</p>
+<p>${t.description}</p>
+
 <a href="${t.url}" target="_blank">Open</a>
+
+<br><br>
+
 <button onclick="del('${t.id}')">Delete</button>
 </div>
 `).join("");
 }
 
 async function addTool(){
+
 await supabase.from("tools").insert([{
 name: name.value,
 category: category.value,

@@ -3,35 +3,897 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel - Creator Hub Pro</title>
-<link rel="stylesheet" href="style.css">
+
+<title>Creator Hub Pro — Discover The Best AI Tools</title>
+
+<meta name="description" content="Discover trending AI tools for creators, developers, startups, designers, marketers, and businesses. Explore premium AI products in one powerful platform.">
+
+<meta name="keywords" content="AI tools, AI directory, ChatGPT tools, SEO AI, AI video tools, AI coding tools, AI startup tools">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#050816;
+color:white;
+overflow-x:hidden;
+}
+
+/* BACKGROUND */
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top left, rgba(124,58,237,.22), transparent 30%),
+radial-gradient(circle at top right, rgba(6,182,212,.18), transparent 30%),
+radial-gradient(circle at bottom, rgba(236,72,153,.12), transparent 35%);
+z-index:-1;
+}
+
+/* NAVBAR */
+.navbar{
+position:sticky;
+top:0;
+z-index:1000;
+background:rgba(5,8,22,.75);
+backdrop-filter:blur(16px);
+border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.nav-inner{
+max-width:1400px;
+margin:auto;
+padding:18px 24px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:28px;
+font-weight:900;
+background:linear-gradient(90deg,#8b5cf6,#06b6d4);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.nav-links{
+display:flex;
+gap:28px;
+align-items:center;
+}
+
+.nav-links a{
+text-decoration:none;
+color:#cbd5e1;
+font-size:15px;
+transition:.3s;
+}
+
+.nav-links a:hover{
+color:white;
+}
+
+.nav-btn{
+padding:12px 18px;
+border-radius:14px;
+background:linear-gradient(90deg,#7c3aed,#06b6d4);
+text-decoration:none;
+color:white;
+font-weight:600;
+}
+
+/* HERO */
+.hero{
+max-width:1400px;
+margin:auto;
+padding:90px 24px 60px;
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:60px;
+align-items:center;
+}
+
+.hero-left h1{
+font-size:78px;
+line-height:1.05;
+font-weight:900;
+margin-bottom:26px;
+
+background:linear-gradient(
+90deg,
+#ffffff,
+#a78bfa,
+#67e8f9
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero-left p{
+font-size:18px;
+line-height:1.9;
+color:#cbd5e1;
+max-width:720px;
+}
+
+.hero-buttons{
+display:flex;
+gap:18px;
+flex-wrap:wrap;
+margin-top:35px;
+}
+
+.btn-primary{
+padding:16px 28px;
+border-radius:18px;
+background:linear-gradient(90deg,#7c3aed,#06b6d4);
+color:white;
+text-decoration:none;
+font-weight:700;
+box-shadow:0 0 35px rgba(124,58,237,.35);
+transition:.35s;
+}
+
+.btn-primary:hover{
+transform:translateY(-4px);
+}
+
+.btn-secondary{
+padding:16px 28px;
+border-radius:18px;
+border:1px solid rgba(255,255,255,.08);
+background:rgba(255,255,255,.04);
+color:white;
+text-decoration:none;
+font-weight:600;
+}
+
+/* HERO CARD */
+.hero-card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+padding:30px;
+border-radius:30px;
+backdrop-filter:blur(14px);
+}
+
+.hero-card h3{
+font-size:30px;
+margin-bottom:18px;
+}
+
+.mini-tool{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px;
+margin-top:14px;
+border-radius:18px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.06);
+}
+
+.mini-tool strong{
+display:block;
+font-size:16px;
+}
+
+.mini-tool span{
+font-size:13px;
+color:#94a3b8;
+}
+
+.tag{
+padding:8px 14px;
+border-radius:999px;
+background:rgba(124,58,237,.15);
+color:#c084fc;
+font-size:12px;
+}
+
+/* STATS */
+.stats{
+max-width:1400px;
+margin:auto;
+padding:0 24px 70px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:24px;
+}
+
+.stat-card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+padding:34px;
+border-radius:26px;
+text-align:center;
+backdrop-filter:blur(14px);
+}
+
+.stat-card h2{
+font-size:56px;
+color:#67e8f9;
+margin-bottom:10px;
+}
+
+/* SEARCH */
+.search-section{
+max-width:1400px;
+margin:auto;
+padding:0 24px;
+}
+
+.search-bar{
+width:100%;
+padding:22px;
+border:none;
+outline:none;
+border-radius:22px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+color:white;
+font-size:16px;
+}
+
+/* FILTERS */
+.filters{
+display:flex;
+gap:14px;
+flex-wrap:wrap;
+margin-top:25px;
+}
+
+.filter-btn{
+padding:12px 18px;
+border:none;
+border-radius:999px;
+background:rgba(255,255,255,.05);
+color:white;
+cursor:pointer;
+transition:.3s;
+}
+
+.filter-btn:hover{
+background:#7c3aed;
+}
+
+/* SECTION TITLE */
+.section-title{
+text-align:center;
+margin:90px 0 45px;
+}
+
+.section-title h2{
+font-size:58px;
+margin-bottom:14px;
+font-weight:900;
+}
+
+.section-title p{
+color:#94a3b8;
+}
+
+/* TOOLS GRID */
+.tools-grid{
+max-width:1400px;
+margin:auto;
+padding:0 24px 80px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:26px;
+}
+
+/* TOOL CARD */
+.tool-card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+border-radius:28px;
+padding:26px;
+backdrop-filter:blur(14px);
+transition:.35s;
+position:relative;
+overflow:hidden;
+}
+
+.tool-card:hover{
+transform:translateY(-8px);
+border-color:#06b6d4;
+}
+
+.tool-card::before{
+content:"";
+position:absolute;
+top:-40px;
+right:-40px;
+width:130px;
+height:130px;
+background:rgba(124,58,237,.12);
+border-radius:50%;
+}
+
+.tool-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.tool-logo{
+width:56px;
+height:56px;
+border-radius:18px;
+background:linear-gradient(135deg,#7c3aed,#06b6d4);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:22px;
+font-weight:800;
+}
+
+.tool-card h3{
+font-size:28px;
+margin-bottom:12px;
+}
+
+.tool-card p{
+color:#cbd5e1;
+line-height:1.8;
+font-size:15px;
+margin-bottom:24px;
+}
+
+.tool-footer{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.visit-btn{
+padding:12px 20px;
+border-radius:14px;
+background:linear-gradient(90deg,#7c3aed,#06b6d4);
+color:white;
+text-decoration:none;
+font-weight:700;
+}
+
+.price-tag{
+font-size:13px;
+color:#94a3b8;
+}
+
+/* MONETIZATION */
+.monetize{
+max-width:1400px;
+margin:auto;
+padding:0 24px 80px;
+}
+
+.monetize-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:24px;
+}
+
+.money-card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+padding:30px;
+border-radius:28px;
+backdrop-filter:blur(14px);
+}
+
+.money-card h3{
+font-size:30px;
+margin-bottom:16px;
+}
+
+.money-card p{
+color:#cbd5e1;
+line-height:1.8;
+margin-bottom:22px;
+}
+
+/* FOOTER */
+footer{
+padding:50px 24px;
+text-align:center;
+color:#94a3b8;
+border-top:1px solid rgba(255,255,255,.06);
+}
+
+/* MOBILE */
+@media(max-width:900px){
+
+.hero{
+grid-template-columns:1fr;
+}
+
+.hero-left h1{
+font-size:52px;
+}
+
+.section-title h2{
+font-size:42px;
+}
+
+.nav-links{
+display:none;
+}
+
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="nav">
-<h2>Admin Panel</h2>
+<!-- NAVBAR -->
+<div class="navbar">
+
+<div class="nav-inner">
+
+<div class="logo">
+Creator Hub Pro
 </div>
 
-<div class="admin-container">
-
-<h2>Add New Tool</h2>
-
-<input id="name" placeholder="Tool Name">
-<input id="category" placeholder="Category (Writing, SEO, Image...)">
-<input id="url" placeholder="Tool URL">
-<textarea id="desc" placeholder="Description"></textarea>
-
-<button onclick="addTool()">Add Tool</button>
-
-<hr>
-
-<h2>All Tools</h2>
-<div id="toolList"></div>
+<div class="nav-links">
+<a href="#">Home</a>
+<a href="#">Trending</a>
+<a href="#">Categories</a>
+<a href="#">Pricing</a>
+<a href="#">Blog</a>
+<a href="#" class="nav-btn">Submit Tool</a>
+</div>
 
 </div>
 
-<script type="module" src="admin.js"></script>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+
+<div class="hero-left">
+
+<h1>
+Discover The Best AI Tools In One Platform
+</h1>
+
+<p>
+Explore powerful AI products for creators, startups, developers,
+marketers, businesses, and agencies. Find trending tools,
+boost productivity, and scale faster with AI.
+</p>
+
+<div class="hero-buttons">
+
+<a href="#tools" class="btn-primary">
+Explore Tools
+</a>
+
+<a href="#" class="btn-secondary">
+Trending Tools
+</a>
+
+</div>
+
+</div>
+
+<!-- HERO RIGHT -->
+<div class="hero-card">
+
+<h3>🔥 Trending AI Tools</h3>
+
+<div class="mini-tool">
+<div>
+<strong>ChatGPT</strong>
+<span>AI Assistant</span>
+</div>
+
+<div class="tag">
+#1
+</div>
+</div>
+
+<div class="mini-tool">
+<div>
+<strong>Midjourney</strong>
+<span>AI Art Generator</span>
+</div>
+
+<div class="tag">
+Hot
+</div>
+</div>
+
+<div class="mini-tool">
+<div>
+<strong>Runway</strong>
+<span>AI Video Platform</span>
+</div>
+
+<div class="tag">
+Trending
+</div>
+</div>
+
+<div class="mini-tool">
+<div>
+<strong>Cursor AI</strong>
+<span>AI Coding</span>
+</div>
+
+<div class="tag">
+Popular
+</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- STATS -->
+<section class="stats">
+
+<div class="stat-card">
+<h2>1000+</h2>
+<p>AI Tools</p>
+</div>
+
+<div class="stat-card">
+<h2>100K+</h2>
+<p>Monthly Users</p>
+</div>
+
+<div class="stat-card">
+<h2>50+</h2>
+<p>Categories</p>
+</div>
+
+</section>
+
+<!-- SEARCH -->
+<section class="search-section">
+
+<input
+type="text"
+class="search-bar"
+placeholder="Search AI tools..."
+>
+
+<div class="filters">
+
+<button class="filter-btn">All</button>
+<button class="filter-btn">Writing</button>
+<button class="filter-btn">Image</button>
+<button class="filter-btn">Video</button>
+<button class="filter-btn">SEO</button>
+<button class="filter-btn">Coding</button>
+<button class="filter-btn">Voice</button>
+<button class="filter-btn">Automation</button>
+
+</div>
+
+</section>
+
+<!-- TITLE -->
+<div class="section-title" id="tools">
+
+<h2>Featured AI Tools</h2>
+
+<p>
+The most powerful AI products trusted by creators and startups.
+</p>
+
+</div>
+
+<!-- TOOLS -->
+<section class="tools-grid">
+
+<!-- CARD -->
+<div class="tool-card">
+
+<div class="tool-top">
+
+<div class="tool-logo">
+C
+</div>
+
+<div class="tag">
+Writing
+</div>
+
+</div>
+
+<h3>ChatGPT</h3>
+
+<p>
+AI assistant for content creation, coding,
+brainstorming, research, automation, and productivity.
+</p>
+
+<div class="tool-footer">
+
+<a href="https://chat.openai.com" target="_blank" class="visit-btn">
+Visit
+</a>
+
+<div class="price-tag">
+Freemium
+</div>
+
+</div>
+
+</div>
+
+<!-- CARD -->
+<div class="tool-card">
+
+<div class="tool-top">
+
+<div class="tool-logo">
+M
+</div>
+
+<div class="tag">
+Image
+</div>
+
+</div>
+
+<h3>Midjourney</h3>
+
+<p>
+Create cinematic AI artwork, illustrations,
+concept designs, and ultra-realistic visuals.
+</p>
+
+<div class="tool-footer">
+
+<a href="https://midjourney.com" target="_blank" class="visit-btn">
+Visit
+</a>
+
+<div class="price-tag">
+Paid
+</div>
+
+</div>
+
+</div>
+
+<!-- CARD -->
+<div class="tool-card">
+
+<div class="tool-top">
+
+<div class="tool-logo">
+R
+</div>
+
+<div class="tag">
+Video
+</div>
+
+</div>
+
+<h3>Runway</h3>
+
+<p>
+Generate AI videos, edit cinematic scenes,
+remove backgrounds, and create visual effects.
+</p>
+
+<div class="tool-footer">
+
+<a href="https://runwayml.com" target="_blank" class="visit-btn">
+Visit
+</a>
+
+<div class="price-tag">
+Freemium
+</div>
+
+</div>
+
+</div>
+
+<!-- CARD -->
+<div class="tool-card">
+
+<div class="tool-top">
+
+<div class="tool-logo">
+C
+</div>
+
+<div class="tag">
+Coding
+</div>
+
+</div>
+
+<h3>Cursor AI</h3>
+
+<p>
+Modern AI-powered coding editor built for developers,
+automation workflows, and rapid software building.
+</p>
+
+<div class="tool-footer">
+
+<a href="https://cursor.com" target="_blank" class="visit-btn">
+Visit
+</a>
+
+<div class="price-tag">
+Freemium
+</div>
+
+</div>
+
+</div>
+
+<!-- CARD -->
+<div class="tool-card">
+
+<div class="tool-top">
+
+<div class="tool-logo">
+E
+</div>
+
+<div class="tag">
+Voice
+</div>
+
+</div>
+
+<h3>ElevenLabs</h3>
+
+<p>
+Generate ultra realistic AI voices, narrations,
+voiceovers, multilingual speech, and cloning.
+</p>
+
+<div class="tool-footer">
+
+<a href="https://elevenlabs.io" target="_blank" class="visit-btn">
+Visit
+</a>
+
+<div class="price-tag">
+Premium
+</div>
+
+</div>
+
+</div>
+
+<!-- CARD -->
+<div class="tool-card">
+
+<div class="tool-top">
+
+<div class="tool-logo">
+S
+</div>
+
+<div class="tag">
+SEO
+</div>
+
+</div>
+
+<h3>Surfer SEO</h3>
+
+<p>
+Optimize blogs, keywords, content structure,
+and improve Google search rankings using AI.
+</p>
+
+<div class="tool-footer">
+
+<a href="https://surferseo.com" target="_blank" class="visit-btn">
+Visit
+</a>
+
+<div class="price-tag">
+Paid
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- MONETIZATION -->
+<section class="monetize">
+
+<div class="section-title">
+
+<h2>Monetization Ready</h2>
+
+<p>
+Built to scale traffic, affiliate income, and premium tool placements.
+</p>
+
+</div>
+
+<div class="monetize-grid">
+
+<div class="money-card">
+
+<h3>💰 Affiliate Revenue</h3>
+
+<p>
+Add affiliate links to premium AI tools
+and earn commissions from every signup.
+</p>
+
+<a href="#" class="visit-btn">
+Start Monetizing
+</a>
+
+</div>
+
+<div class="money-card">
+
+<h3>🚀 Featured Listings</h3>
+
+<p>
+Charge AI startups to feature their products
+on the homepage and trending sections.
+</p>
+
+<a href="#" class="visit-btn">
+Featured Ads
+</a>
+
+</div>
+
+<div class="money-card">
+
+<h3>📈 SEO Traffic Engine</h3>
+
+<p>
+Rank for “Best AI Tools” keywords and
+drive long-term Google organic traffic.
+</p>
+
+<a href="#" class="visit-btn">
+Grow Traffic
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+© 2026 Creator Hub Pro — AI Startup Discovery Platform
+
+</footer>
 
 </body>
 </html>

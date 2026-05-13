@@ -14,26 +14,27 @@ document.querySelectorAll(".filter-btn");
 
 let allTools = [];
 
-let activeCategory = "All";
+let allTools = [];
 
-/* LOAD TOOLS */
-async function loadTools(){
+async function loadTools() {
 
 const { data, error } = await supabase
 .from("tools")
-.select("*")
-.order("trending_score",{ascending:false});
+.select("*");
 
-if(error){
-console.log(error);
+if (error) {
+console.log("Supabase Error:", error);
 return;
 }
 
-allTools = data;
+console.log("Loaded Tools:", data);
+
+allTools = data || [];
 
 renderTools(allTools);
-
 }
+
+loadTools();
 
 /* RENDER */
 function renderTools(tools){

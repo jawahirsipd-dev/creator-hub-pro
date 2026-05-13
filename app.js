@@ -1,6 +1,6 @@
 const supabase = window.supabase.createClient(
-"https://YOURPROJECT.supabase.co",
-"YOUR_PUBLISHABLE_KEY"
+"https://dpjmlasbomyleogiimmy.supabase.co",
+"sb_publishable_wAAf0ea-YM8y2Rwl-tb8qQ_Ch51opEi"
 );
 
 const toolsContainer =

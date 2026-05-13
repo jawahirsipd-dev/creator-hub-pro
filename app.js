@@ -1,5 +1,5 @@
 const supabase = window.supabase.createClient(
-"https://dpjmlasbomyleogiimmy.supabase.co",
+"https://dpjmlasbomyleogiimmy.supabase.co/rest/v1/",
 "sb_publishable_wAAf0ea-YM8y2Rwl-tb8qQ_Ch51opEi"
 );
 

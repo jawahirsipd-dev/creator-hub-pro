@@ -1,117 +1,462 @@
+<!-- ===================================================== -->
+<!-- FILE: tool.html -->
+<!-- Dynamic AI Tool Detail Page -->
+<!-- ===================================================== -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard - Creator Hub Pro</title>
 
-<link rel="stylesheet" href="style.css">
+<title>AI Tool Details | Creator Hub Pro</title>
+
+<meta name="description" content="Explore AI tool reviews, features, pricing, pros & cons, alternatives, and ratings on Creator Hub Pro.">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-body{
+
+/* RESET */
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
 background:#050816;
 color:white;
-font-family:Arial;
+overflow-x:hidden;
 }
 
-.sidebar{
-width:220px;
-height:100vh;
+/* BG */
+body::before{
+content:"";
 position:fixed;
-left:0;
-top:0;
-background:#0f172a;
-padding:20px;
+inset:0;
+background:
+radial-gradient(circle at top left, rgba(124,58,237,.22), transparent 30%),
+radial-gradient(circle at top right, rgba(6,182,212,.16), transparent 30%);
+z-index:-1;
 }
 
-.sidebar h2{
-color:#7c3aed;
+.container{
+max-width:1300px;
+margin:auto;
+padding:40px 24px;
 }
 
-.main{
-margin-left:240px;
-padding:30px;
+/* NAV */
+.nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:40px;
 }
 
-.card{
-background:#111827;
-padding:15px;
-border-radius:12px;
-margin:10px 0;
+.logo{
+font-size:30px;
+font-weight:900;
+background:linear-gradient(90deg,#8b5cf6,#06b6d4);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
-input, textarea{
-width:100%;
-padding:10px;
-margin:8px 0;
-border-radius:8px;
-border:none;
-background:#1f2937;
+.back-btn{
+padding:12px 18px;
+border-radius:14px;
+background:rgba(255,255,255,.06);
+text-decoration:none;
 color:white;
 }
 
-button{
-padding:10px 15px;
-background:#7c3aed;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
-margin-top:10px;
-}
-
-.grid{
+/* TOOL HEADER */
+.tool-header{
 display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
+grid-template-columns:120px 1fr;
+gap:30px;
+align-items:center;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+padding:40px;
+border-radius:30px;
+backdrop-filter:blur(16px);
 }
 
-@media(max-width:768px){
-.sidebar{display:none;}
-.main{margin:0;}
-.grid{grid-template-columns:1fr;}
+.tool-logo{
+width:120px;
+height:120px;
+border-radius:28px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:50px;
+font-weight:900;
+background:linear-gradient(135deg,#7c3aed,#06b6d4);
 }
+
+.tool-info h1{
+font-size:56px;
+margin-bottom:14px;
+}
+
+.tool-info p{
+font-size:17px;
+line-height:1.9;
+color:#cbd5e1;
+margin-bottom:24px;
+}
+
+.tags{
+display:flex;
+gap:14px;
+flex-wrap:wrap;
+}
+
+.tag{
+padding:10px 16px;
+border-radius:999px;
+background:rgba(124,58,237,.15);
+color:#c084fc;
+font-size:13px;
+}
+
+/* BUTTONS */
+.tool-actions{
+display:flex;
+gap:16px;
+margin-top:28px;
+flex-wrap:wrap;
+}
+
+.visit-btn{
+padding:16px 28px;
+border-radius:18px;
+background:linear-gradient(90deg,#7c3aed,#06b6d4);
+text-decoration:none;
+color:white;
+font-weight:700;
+}
+
+.review-btn{
+padding:16px 28px;
+border-radius:18px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+text-decoration:none;
+color:white;
+}
+
+/* GRID */
+.content-grid{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:30px;
+margin-top:40px;
+}
+
+/* CARDS */
+.card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+padding:30px;
+border-radius:28px;
+backdrop-filter:blur(14px);
+margin-bottom:30px;
+}
+
+.card h2{
+font-size:34px;
+margin-bottom:20px;
+}
+
+.card p{
+line-height:1.9;
+color:#cbd5e1;
+margin-bottom:18px;
+}
+
+/* LIST */
+.list{
+display:grid;
+gap:16px;
+}
+
+.list-item{
+padding:16px;
+border-radius:18px;
+background:rgba(255,255,255,.04);
+}
+
+/* REVIEWS */
+.review{
+padding:20px;
+border-radius:20px;
+background:rgba(255,255,255,.04);
+margin-top:18px;
+}
+
+.review strong{
+display:block;
+margin-bottom:10px;
+}
+
+/* RELATED */
+.related-tool{
+padding:18px;
+border-radius:20px;
+background:rgba(255,255,255,.04);
+margin-bottom:16px;
+}
+
+.related-tool a{
+text-decoration:none;
+color:white;
+font-weight:700;
+display:block;
+margin-bottom:8px;
+}
+
+.related-tool p{
+font-size:14px;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+
+.tool-header{
+grid-template-columns:1fr;
+text-align:center;
+}
+
+.tool-logo{
+margin:auto;
+}
+
+.tool-info h1{
+font-size:42px;
+}
+
+.content-grid{
+grid-template-columns:1fr;
+}
+
+}
+
 </style>
 
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-<h2>Creator Hub Pro</h2>
-<p>Admin Panel</p>
+<div class="container">
 
-<hr>
+<!-- NAV -->
+<div class="nav">
 
-<p>📊 Dashboard</p>
-<p>➕ Add Tools</p>
-<p>🗑 Manage Tools</p>
+<div class="logo">
+Creator Hub Pro
+</div>
+
+<a href="index.html" class="back-btn">
+← Back
+</a>
 
 </div>
 
-<!-- MAIN -->
-<div class="main">
+<!-- TOOL HEADER -->
+<div class="tool-header">
 
-<h1>Admin Dashboard</h1>
-
-<!-- ADD TOOL -->
-<div class="card">
-<h3>Add New Tool</h3>
-
-<input id="name" placeholder="Tool Name">
-<input id="category" placeholder="Category">
-<input id="url" placeholder="Tool URL">
-<textarea id="desc" placeholder="Description"></textarea>
-
-<button onclick="addTool()">Add Tool</button>
+<div class="tool-logo" id="toolLogo">
+A
 </div>
 
-<!-- TOOLS LIST -->
+<div class="tool-info">
+
+<h1 id="toolName">
+Loading...
+</h1>
+
+<p id="toolDescription">
+Loading tool description...
+</p>
+
+<div class="tags">
+
+<div class="tag" id="toolCategory">
+AI Tool
+</div>
+
+<div class="tag">
+⭐ Trending
+</div>
+
+<div class="tag">
+🚀 SaaS
+</div>
+
+</div>
+
+<div class="tool-actions">
+
+<a href="#" target="_blank" class="visit-btn" id="toolVisit">
+Visit Tool
+</a>
+
+<a href="#reviews" class="review-btn">
+Read Reviews
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CONTENT -->
+<div class="content-grid">
+
+<!-- LEFT -->
+<div>
+
+<!-- ABOUT -->
 <div class="card">
-<h3>All Tools</h3>
-<div id="list"></div>
+
+<h2>
+About This Tool
+</h2>
+
+<p id="aboutText">
+Loading...
+</p>
+
+</div>
+
+<!-- FEATURES -->
+<div class="card">
+
+<h2>
+Key Features
+</h2>
+
+<div class="list">
+
+<div class="list-item">
+AI-powered workflow automation
+</div>
+
+<div class="list-item">
+Fast content generation
+</div>
+
+<div class="list-item">
+SEO optimized outputs
+</div>
+
+<div class="list-item">
+Cloud-based platform
+</div>
+
+</div>
+
+</div>
+
+<!-- PROS -->
+<div class="card">
+
+<h2>
+Pros & Cons
+</h2>
+
+<div class="list">
+
+<div class="list-item">
+✅ Beginner friendly interface
+</div>
+
+<div class="list-item">
+✅ Fast AI generation
+</div>
+
+<div class="list-item">
+❌ Limited free plan
+</div>
+
+<div class="list-item">
+❌ Premium features locked
+</div>
+
+</div>
+
+</div>
+
+<!-- REVIEWS -->
+<div class="card" id="reviews">
+
+<h2>
+User Reviews
+</h2>
+
+<div class="review">
+<strong>
+⭐⭐⭐⭐⭐ Alex
+</strong>
+
+Amazing AI platform for creators and developers.
+</div>
+
+<div class="review">
+<strong>
+⭐⭐⭐⭐ Sarah
+</strong>
+
+Great workflow and very fast generation.
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+<div>
+
+<!-- STATS -->
+<div class="card">
+
+<h2>
+Tool Stats
+</h2>
+
+<p>
+🔥 Trending Score: <strong id="trendScore">0</strong>
+</p>
+
+<p>
+👆 Total Clicks: <strong id="clicks">0</strong>
+</p>
+
+<p>
+📂 Category: <strong id="categorySide">AI</strong>
+</p>
+
+</div>
+
+<!-- RELATED -->
+<div class="card">
+
+<h2>
+Related Tools
+</h2>
+
+<div id="relatedTools"></div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -120,48 +465,98 @@ gap:20px;
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <script>
-const supabase = supabase.createClient(
-"https://dpjmlasbomyleogiimmy.supabase.co",
-"sb_publishable_wAAf0ea-YM8y2Rwl-tb8qQ_Ch51opEi"
+
+const supabase = window.supabase.createClient(
+"https://YOURPROJECT.supabase.co",
+"YOUR_PUBLISHABLE_KEY"
 );
 
-async function load(){
-const { data } = await supabase.from("tools").select("*");
+/* GET URL PARAM */
+const params = new URLSearchParams(window.location.search);
 
-document.getElementById("list").innerHTML =
-data.map(t => `
-<div class="card">
-<h3>${t.name}</h3>
-<p>${t.category}</p>
-<p>${t.description}</p>
+const toolId = params.get("id");
 
-<a href="${t.url}" target="_blank">Open</a>
+/* LOAD TOOL */
+async function loadTool(){
 
-<br><br>
+const { data, error } = await supabase
+.from("tools")
+.select("*")
+.eq("id",toolId)
+.single();
 
-<button onclick="del('${t.id}')">Delete</button>
+if(error){
+console.log(error);
+return;
+}
+
+document.title =
+`${data.name} Review | Creator Hub Pro`;
+
+document.getElementById("toolName").innerText =
+data.name;
+
+document.getElementById("toolDescription").innerText =
+data.description;
+
+document.getElementById("aboutText").innerText =
+data.description;
+
+document.getElementById("toolCategory").innerText =
+data.category;
+
+document.getElementById("categorySide").innerText =
+data.category;
+
+document.getElementById("toolVisit").href =
+data.url;
+
+document.getElementById("toolLogo").innerText =
+data.name.charAt(0);
+
+document.getElementById("trendScore").innerText =
+data.trending_score || 0;
+
+document.getElementById("clicks").innerText =
+data.clicks || 0;
+
+/* RELATED TOOLS */
+loadRelated(data.category);
+
+}
+
+/* RELATED */
+async function loadRelated(category){
+
+const { data } = await supabase
+.from("tools")
+.select("*")
+.eq("category",category)
+.limit(4);
+
+const container =
+document.getElementById("relatedTools");
+
+container.innerHTML = data.map(tool => `
+
+<div class="related-tool">
+
+<a href="tool.html?id=${tool.id}">
+${tool.name}
+</a>
+
+<p>
+${tool.description}
+</p>
+
 </div>
+
 `).join("");
+
 }
 
-async function addTool(){
+loadTool();
 
-await supabase.from("tools").insert([{
-name: name.value,
-category: category.value,
-url: url.value,
-description: desc.value
-}]);
-
-load();
-}
-
-async function del(id){
-await supabase.from("tools").delete().eq("id", id);
-load();
-}
-
-load();
 </script>
 
 </body>

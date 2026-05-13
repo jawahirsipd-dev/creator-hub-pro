@@ -1,9 +1,11 @@
+ALTER TABLE tools
+ADD COLUMN clicks INT DEFAULT 0;
 
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+ALTER TABLE tools
+ADD COLUMN featured BOOLEAN DEFAULT false;
 
-const supabase = createClient(
-"https://dpjmlasbomyleogiimmy.supabase.co",
-"YOUR_PUBLISHABLE_KEY"
-);
+ALTER TABLE tools
+ADD COLUMN premium BOOLEAN DEFAULT false;
 
-export default supabase;
+ALTER TABLE tools
+ADD COLUMN trending_score INT DEFAULT 0;

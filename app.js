@@ -1,87 +1,87 @@
-const supabase = window.supabase.createClient(
-"https://dpjmlasbomyleogiimmy.supabase.co/rest/v1/",
-"sb_publishable_wAAf0ea-YM8y2Rwl-tb8qQ_Ch51opEi"
+const supabaseUrl = "YOUR_SUPABASE_URL";
+const supabaseKey = "YOUR_SUPABASE_ANON_KEY";
+
+const client = supabase.createClient(
+supabaseUrl,
+supabaseKey
 );
 
-const toolsContainer =
-document.getElementById("toolsContainer");
-
-const searchInput =
-document.getElementById("searchInput");
-
-const filterButtons =
-document.querySelectorAll(".filter-btn");
-
 let allTools = [];
+let currentCategory = "All";
 
-let allTools = [];
+/* LOAD TOOLS */
+async function loadTools(){
 
-async function loadTools() {
-
-const { data, error } = await supabase
+const { data, error } = await client
 .from("tools")
-.select("*");
+.select("*")
+.order("created_at", { ascending:false });
 
-if (error) {
+if(error){
 console.log("Supabase Error:", error);
 return;
 }
 
-console.log("Loaded Tools:", data);
-
 allTools = data || [];
 
 renderTools(allTools);
+
 }
 
 loadTools();
 
-/* RENDER */
+/* RENDER TOOLS */
 function renderTools(tools){
 
-toolsContainer.innerHTML = tools.map(tool => `
+const container =
+document.getElementById("toolsContainer");
+
+if(!container) return;
+
+if(tools.length === 0){
+
+container.innerHTML = `
+<div class="no-tools">
+No tools found
+</div>
+`;
+
+return;
+
+}
+
+container.innerHTML = tools.map(tool => `
 
 <div class="tool-card">
 
-${tool.featured ? `
-<div class="featured-badge">
-⭐ Featured
-</div>
-` : ""}
+<div class="tool-top">
 
-${tool.premium ? `
-<div class="premium-badge">
-🔒 Premium
+<span class="tool-category">
+${tool.category || "AI"}
+</span>
+
 </div>
-` : ""}
 
 <h3>
 ${tool.name}
 </h3>
 
 <p>
-${tool.description}
+${tool.description || "No description available"}
 </p>
 
-<div class="tool-meta">
-
-<span>
-${tool.category}
-</span>
-
-<span>
-🔥 ${tool.clicks || 0}
-</span>
-
-</div>
+<div class="tool-bottom">
 
 <a
-href="tool.html?id=${tool.id}"
+href="${tool.url}"
+target="_blank"
 class="visit-btn"
 onclick="trackClick('${tool.id}')"
 >
-View Tool
+Visit Tool
 </a>
+
+</div>
 
 </div>
 
@@ -90,9 +90,22 @@ View Tool
 }
 
 /* SEARCH */
-searchInput.addEventListener("input", filterTools);
+const searchInput =
+document.getElementById("searchInput");
 
-/* FILTER BUTTONS */
+searchInput.addEventListener("input", e => {
+
+const search =
+e.target.value.toLowerCase();
+
+filterTools(search, currentCategory);
+
+});
+
+/* CATEGORY FILTER */
+const filterButtons =
+document.querySelectorAll(".filter-btn");
+
 filterButtons.forEach(button => {
 
 button.addEventListener("click", () => {
@@ -103,59 +116,83 @@ btn.classList.remove("active")
 
 button.classList.add("active");
 
-activeCategory =
+currentCategory =
 button.dataset.category;
-
-filterTools();
-
-});
-
-});
-
-/* FILTER FUNCTION */
-function filterTools(){
 
 const search =
 searchInput.value.toLowerCase();
 
-const filtered = allTools.filter(tool => {
-
-const matchesSearch =
-tool.name.toLowerCase().includes(search) ||
-tool.description.toLowerCase().includes(search);
-
-const matchesCategory =
-activeCategory === "All" ||
-tool.category === activeCategory;
-
-return matchesSearch && matchesCategory;
+filterTools(search, currentCategory);
 
 });
+
+});
+
+/* FILTER LOGIC */
+function filterTools(search, category){
+
+let filtered = allTools;
+
+if(category !== "All"){
+
+filtered = filtered.filter(tool =>
+tool.category &&
+tool.category.toLowerCase() ===
+category.toLowerCase()
+);
+
+}
+
+if(search){
+
+filtered = filtered.filter(tool =>
+
+tool.name.toLowerCase().includes(search) ||
+
+(tool.description &&
+tool.description.toLowerCase().includes(search))
+
+);
+
+}
 
 renderTools(filtered);
 
 }
 
-/* TRACK CLICKS */
-window.trackClick = async function(id){
+/* CLICK TRACKING */
+async function trackClick(id){
 
 const tool =
-allTools.find(t => t.id === id);
+allTools.find(t => t.id == id);
 
 if(!tool) return;
 
 const newClicks =
 (tool.clicks || 0) + 1;
 
-await supabase
+await client
 .from("tools")
 .update({
-clicks:newClicks,
-trending_score:newClicks
+clicks:newClicks
 })
-.eq("id",id);
+.eq("id", id);
 
 }
 
-/* START */
-loadTools();
+/* TRENDING SYSTEM */
+async function loadTrending(){
+
+const { data, error } = await client
+.from("tools")
+.select("*")
+.order("clicks", { ascending:false })
+.limit(6);
+
+if(error) return;
+
+console.log("Trending:", data);
+
+}
+
+loadTrending();

@@ -1,5 +1,6 @@
-const supabaseUrl = "https://dpjmlasbomyleogiimmy.supabase.co";
-const supabaseKey = "sb_publishable_wAAf0ea-YM8y2Rwl-tb8qQ_Ch51opEi";
+const SUPABASE_URL = "https://dpjmlasbomyleogiimmy.supabase.co";
+const SUPABASE_KEY = "sb_publishable_wAAf0ea-YM8y2Rwl-tb8qQ_Ch51opEi";
+
 const client = supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
@@ -11,12 +12,15 @@ document.getElementById("toolsContainer");
 const searchInput =
 document.getElementById("searchInput");
 
-const filterButtons =
+const buttons =
 document.querySelectorAll(".filter-btn");
 
 let allTools = [];
 
 async function loadTools(){
+
+toolsContainer.innerHTML =
+"<h2 style='color:white'>Loading...</h2>";
 
 const { data, error } =
 await client
@@ -28,7 +32,16 @@ if(error){
 console.log(error);
 
 toolsContainer.innerHTML =
-"<h2>Database Error</h2>";
+"<h2 style='color:red'>Supabase Connection Failed</h2>";
+
+return;
+
+}
+
+if(!data || data.length === 0){
+
+toolsContainer.innerHTML =
+"<h2 style='color:white'>No Tools Found</h2>";
 
 return;
 
@@ -53,9 +66,7 @@ ${tool.category}
 
 <h3>${tool.name}</h3>
 
-<p>
-${tool.description}
-</p>
+<p>${tool.description}</p>
 
 <a href="${tool.url}" target="_blank">
 Visit Tool
@@ -83,7 +94,7 @@ renderTools(filtered);
 
 });
 
-filterButtons.forEach(button=>{
+buttons.forEach(button=>{
 
 button.addEventListener("click",()=>{
 
@@ -93,7 +104,6 @@ button.dataset.category;
 if(category === "All"){
 
 renderTools(allTools);
-
 return;
 
 }

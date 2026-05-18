@@ -1,6 +1,6 @@
 const supabaseUrl = "https://dpjmlasbomyleogiimmy.supabase.co";
 const supabaseKey = "sb_publishable_wAAf0ea-YM8y2Rwl-tb8qQ_Ch51opEi";
-const supabaseClient = supabase.createClient(
+const client = supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
@@ -18,13 +18,20 @@ let allTools = [];
 
 async function loadTools(){
 
-const { data, error } = await supabaseClient
+const { data, error } =
+await client
 .from("tools")
 .select("*");
 
 if(error){
+
 console.log(error);
+
+toolsContainer.innerHTML =
+"<h2>Database Error</h2>";
+
 return;
+
 }
 
 allTools = data;
@@ -35,7 +42,8 @@ renderTools(allTools);
 
 function renderTools(tools){
 
-toolsContainer.innerHTML = tools.map(tool => `
+toolsContainer.innerHTML =
+tools.map(tool => `
 
 <div class="tool-card">
 
@@ -50,7 +58,7 @@ ${tool.description}
 </p>
 
 <a href="${tool.url}" target="_blank">
-Visit Tool →
+Visit Tool
 </a>
 
 </div>
@@ -61,9 +69,11 @@ Visit Tool →
 
 searchInput.addEventListener("input",(e)=>{
 
-const value = e.target.value.toLowerCase();
+const value =
+e.target.value.toLowerCase();
 
-const filtered = allTools.filter(tool =>
+const filtered =
+allTools.filter(tool =>
 
 tool.name.toLowerCase().includes(value)
 
@@ -81,11 +91,15 @@ const category =
 button.dataset.category;
 
 if(category === "All"){
+
 renderTools(allTools);
+
 return;
+
 }
 
-const filtered = allTools.filter(tool =>
+const filtered =
+allTools.filter(tool =>
 
 tool.category === category
 

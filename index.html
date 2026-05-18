@@ -1,26 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Creator Hub Pro | AI Tools Directory</title>
-
-<meta name="description" content="Discover trending AI tools for creators, developers, marketers, designers, and businesses. Explore 1000+ AI tools on Creator Hub Pro.">
-
-<meta name="keywords" content="AI tools, AI directory, ChatGPT, Midjourney, AI video tools, AI writing tools, AI image generators">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Creator Hub Pro</title>
 
 <link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 </head>
 
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
 
 <div class="logo">
@@ -28,78 +23,26 @@
 </div>
 
 <div class="nav-links">
-
-<a href="#tools">
-Tools
-</a>
-
-<a href="admin.html">
-Admin
-</a>
-
-<a href="#trending">
-Trending
-</a>
-
+<a href="#">Tools</a>
+<a href="#">Admin</a>
+<a href="#">Trending</a>
 </div>
 
 </nav>
 
-<!-- HERO -->
 <section class="hero">
 
-<div class="hero-content">
-
-<div class="badge">
-🔥 1000+ AI Tools Platform
-</div>
-
 <h1>
-Discover The Best AI Tools For Creators
+Discover The Best AI Tools
 </h1>
 
 <p>
-Explore trending AI tools for writing, coding, video editing,
-SEO, automation, design, voice generation, and productivity.
+Explore powerful AI tools for creators,
+developers, marketers, and businesses.
 </p>
 
-<div class="hero-buttons">
-
-<a href="#tools" class="primary-btn">
-Explore Tools
-</a>
-
-<a href="#trending" class="secondary-btn">
-Trending Tools
-</a>
-
-</div>
-
-</div>
-
 </section>
 
-<!-- STATS -->
-<section class="stats">
-
-<div class="stat-card">
-<h2>1000+</h2>
-<p>AI Tools</p>
-</div>
-
-<div class="stat-card">
-<h2>100K+</h2>
-<p>Monthly Users</p>
-</div>
-
-<div class="stat-card">
-<h2>50+</h2>
-<p>Categories</p>
-</div>
-
-</section>
-
-<!-- SEARCH -->
 <section class="search-section">
 
 <input
@@ -108,12 +51,9 @@ id="searchInput"
 placeholder="Search AI tools..."
 >
 
-</section>
+<div class="filters">
 
-<!-- FILTERS -->
-<section class="filters">
-
-<button class="filter-btn active" data-category="All">
+<button class="filter-btn" data-category="All">
 All
 </button>
 
@@ -133,85 +73,18 @@ Video
 Coding
 </button>
 
-<button class="filter-btn" data-category="SEO">
-SEO
-</button>
-
-<button class="filter-btn" data-category="Voice">
-Voice
-</button>
-
-<button class="filter-btn" data-category="Automation">
-Automation
-</button>
+</div>
 
 </section>
 
-<!-- TOOLS -->
-<section class="tools-section" id="tools">
+<section>
 
-<div class="section-title">
-
-<h2>
-Trending AI Tools
-</h2>
-
-<p>
-Explore the fastest growing AI platforms
-</p>
-
-</div>
-
-<div <section class="tools-section">
-
-<div class="section-title">
-<h2>Trending AI Tools</h2>
-<p>Explore the fastest growing AI platforms</p>
-</div>
-
-<div id="toolsContainer" class="tools-grid"></div>
-
-</section>AMIC TOOLS -->
+<div id="toolsContainer" class="tools-grid">
 
 </div>
 
 </section>
 
-<!-- CTA -->
-<section class="cta-section">
-
-<h2>
-Grow Faster With AI Tools
-</h2>
-
-<p>
-Find powerful AI platforms to automate your workflow,
-grow your business, and create faster.
-</p>
-
-<a href="#tools" class="primary-btn">
-Start Exploring
-</a>
-
-</section>
-
-<!-- FOOTER -->
-<footer>
-
-<div class="footer-logo">
-Creator Hub Pro
-</div>
-
-<p>
-© 2026 Creator Hub Pro — All Rights Reserved
-</p>
-
-</footer>
-
-<!-- SUPABASE -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
-<!-- APP -->
 <script src="app.js"></script>
 
 </body>

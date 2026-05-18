@@ -1,56 +1,41 @@
 const supabaseUrl = "https://dpjmlasbomyleogiimmy.supabase.co";
 const supabaseKey = "sb_publishable_wAAf0ea-YM8y2Rwl-tb8qQ_Ch51opEi";
-
-const client = supabase.createClient(
-supabaseUrl,
-supabaseKey
+const supabaseClient = supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
-let allTools = [];
-let currentCategory = "All";
+const toolsContainer =
+document.getElementById("toolsContainer");
 
-/* LOAD TOOLS */
+const searchInput =
+document.getElementById("searchInput");
+
+const filterButtons =
+document.querySelectorAll(".filter-btn");
+
+let allTools = [];
+
 async function loadTools(){
 
-const { data, error } = await client
+const { data, error } = await supabaseClient
 .from("tools")
-.select("*")
-.order("created_at", { ascending:false });
+.select("*");
 
 if(error){
-console.log("Supabase Error:", error);
+console.log(error);
 return;
 }
 
-allTools = data || [];
+allTools = data;
 
 renderTools(allTools);
 
 }
 
-loadTools();
-
-/* RENDER TOOLS */
 function renderTools(tools){
 
-const container =
-document.getElementById("toolsContainer");
-
-if(!container) return;
-
-if(tools.length === 0){
-
-container.innerHTML = `
-<div class="no-tools">
-No tools found
-</div>
-`;
-
-return;
-
-}
-
-container.innerHTML = tools.map(tool => `
+toolsContainer.innerHTML = tools.map(tool => `
 
 <div class="tool-card">
 
@@ -72,3 +57,44 @@ Visit Tool →
 
 `).join("");
 
+}
+
+searchInput.addEventListener("input",(e)=>{
+
+const value = e.target.value.toLowerCase();
+
+const filtered = allTools.filter(tool =>
+
+tool.name.toLowerCase().includes(value)
+
+);
+
+renderTools(filtered);
+
+});
+
+filterButtons.forEach(button=>{
+
+button.addEventListener("click",()=>{
+
+const category =
+button.dataset.category;
+
+if(category === "All"){
+renderTools(allTools);
+return;
+}
+
+const filtered = allTools.filter(tool =>
+
+tool.category === category
+
+);
+
+renderTools(filtered);
+
+});
+
+});
+
+loadTools();

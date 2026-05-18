@@ -1,91 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <title>Creator Hub Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 
-<title>Creator Hub Pro</title>
-
-<link rel="stylesheet" href="style.css">
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 
 <body>
 
-<nav class="navbar">
+  <!-- HEADER -->
+  <header class="header">
+    <h1>🚀 Creator Hub Pro</h1>
 
-<div class="logo">
-🚀 Creator Hub Pro
-</div>
+    <input type="text" id="search" placeholder="Search tools...">
 
-<div class="nav-links">
-<a href="#">Tools</a>
-<a href="#">Admin</a>
-<a href="#">Trending</a>
-</div>
+    <div class="filters">
+      <button onclick="filterCategory('All')">All</button>
+      <button onclick="filterCategory('Chat')">Chat</button>
+      <button onclick="filterCategory('Writing')">Writing</button>
+      <button onclick="filterCategory('Image')">Image</button>
+      <button onclick="filterCategory('Video')">Video</button>
+      <button onclick="filterCategory('SEO')">SEO</button>
+    </div>
+  </header>
 
-</nav>
+  <!-- TOOLS -->
+  <div id="tools" class="grid"></div>
 
-<section class="hero">
-
-<h1>
-Discover The Best AI Tools
-</h1>
-
-<p>
-Explore powerful AI tools for creators,
-developers, marketers, and businesses.
-</p>
-
-</section>
-
-<section class="search-section">
-
-<input
-type="text"
-id="searchInput"
-placeholder="Search AI tools..."
->
-
-<div class="filters">
-
-<button class="filter-btn" data-category="All">
-All
-</button>
-
-<button class="filter-btn" data-category="Writing">
-Writing
-</button>
-
-<button class="filter-btn" data-category="Image">
-Image
-</button>
-
-<button class="filter-btn" data-category="Video">
-Video
-</button>
-
-<button class="filter-btn" data-category="Coding">
-Coding
-</button>
-
-</div>
-
-</section>
-
-<section>
-
-<div id="toolsContainer" class="tools-grid">
-
-</div>
-
-</section>
-
-<script src="app.js"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>
+

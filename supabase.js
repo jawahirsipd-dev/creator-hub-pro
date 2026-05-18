@@ -1,11 +1,11 @@
-ALTER TABLE tools
-ADD COLUMN clicks INT DEFAULT 0;
+const SUPABASE_URL =
+"https://YOURPROJECT.supabase.co";
 
-ALTER TABLE tools
-ADD COLUMN featured BOOLEAN DEFAULT false;
+const SUPABASE_KEY =
+"YOUR_ANON_KEY";
 
-ALTER TABLE tools
-ADD COLUMN premium BOOLEAN DEFAULT false;
-
-ALTER TABLE tools
-ADD COLUMN trending_score INT DEFAULT 0;
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);

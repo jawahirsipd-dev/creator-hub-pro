@@ -3,133 +3,130 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 <title>Creator Hub Pro — AI Workflow Marketplace</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-body{
-  margin:0;
-  font-family:Poppins;
-  background:#0b0f1a;
-  color:white;
+body {
+  margin: 0;
+  font-family: Poppins, sans-serif;
+  background: #0f0f1a;
+  color: white;
 }
 
-header{
-  text-align:center;
-  padding:40px 20px;
+header {
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  background: #15152a;
 }
 
-h1{
-  font-size:40px;
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
-#cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-  padding:20px;
+.card {
+  background: #1c1c33;
+  padding: 15px;
+  border-radius: 16px;
+  transition: 0.3s;
+  cursor: pointer;
 }
 
-.card{
-  background:#151c2e;
-  padding:20px;
-  border-radius:15px;
-  transition:0.3s;
+.card:hover {
+  transform: scale(1.05);
+  background: #252547;
 }
 
-.card:hover{
-  transform:scale(1.03);
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
-.card img{
-  width:40px;
-  height:40px;
+.title {
+  font-size: 16px;
+  font-weight: 600;
 }
 
-.card a{
-  display:inline-block;
-  margin-top:10px;
-  color:#00d4ff;
-  text-decoration:none;
+.category {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.desc {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #ccc;
 }
 </style>
+
 </head>
 
 <body>
 
-<header>
-  <h1>🚀 AI Workflow Marketplace</h1>
-  <p>Create • Automate • Grow</p>
-</header>
+<header>🚀 AI Workflow Marketplace</header>
 
-<div id="cards"></div>
+<div class="container" id="cards"></div>
 
 <script>
-// ✅ WORKING DATA
-const workflows = [
-{
-name:"YouTube Shorts Automation",
-category:"Content",
-url:"https://zapier.com",
-description:"Create viral shorts automatically with AI."
-},
-{
-name:"AI Blog Empire",
-category:"Marketing",
-url:"https://writesonic.com",
-description:"Generate SEO blogs using AI."
-},
-{
-name:"AI Faceless Channel",
-category:"Content",
-url:"https://invideo.io",
-description:"Build faceless YouTube channels."
-},
-{
-name:"AI Automation Hub",
-category:"Automation",
-url:"https://n8n.io",
-description:"Build automation workflows visually."
-},
-{
-name:"AI Coding Stack",
-category:"Coding",
-url:"https://cursor.com",
-description:"AI-powered coding assistant workflow."
-}
-];
+// ✅ SUPABASE CONFIG
+const SUPABASE_URL = "https://dpjmlasbomyleogiimmy.supabase.co";
+const SUPABASE_KEY = "YOUR_SUPABASE_ANON_KEY"; // replace this
 
-// ✅ SAFE LOGO FUNCTION
-function getLogo(url){
-  try{
-    let domain = new URL(url).hostname.replace("www.","");
-    return `https://www.google.com/s2/favicons?sz=128&domain=${domain}`;
-  }catch(e){
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ✅ LOGO FUNCTION (auto fetch from domain)
+function getLogo(url) {
+  try {
+    let domain = new URL(url).hostname.replace("www.", "");
+    return `https://img.logo.dev/${domain}?token=demo`;
+  } catch (e) {
     return "https://via.placeholder.com/40";
   }
 }
 
-// ✅ RENDER CARDS
-function renderCards(data){
+// ✅ LOAD DATA
+async function loadWorkflows() {
+  const { data, error } = await supabase.from("tools").select("*");
+
+  if (error) {
+    console.log("Supabase Error:", error);
+    return;
+  }
+
   const container = document.getElementById("cards");
   container.innerHTML = "";
 
-  data.forEach(item=>{
-    container.innerHTML += `
-      <div class="card">
-        <img src="${getLogo(item.url)}" />
-        <h3>${item.name}</h3>
-        <p>${item.description}</p>
-        <a href="${item.url}" target="_blank">Open Tool</a>
-      </div>
+  data.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+      <img class="logo" src="${getLogo(item.url)}" />
+      <div class="title">${item.name}</div>
+      <div class="category">${item.category}</div>
+      <div class="desc">${item.description}</div>
     `;
+
+    card.onclick = () => {
+      window.open(item.url, "_blank");
+    };
+
+    container.appendChild(card);
   });
 }
 
-// ✅ START APP
-renderCards(workflows);
-
+loadWorkflows();
 </script>
 
 </body>

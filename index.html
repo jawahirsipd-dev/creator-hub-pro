@@ -1,38 +1,643 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Creator Hub Pro</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <link rel="stylesheet" href="style.css">
+<title>Creator Hub Pro — AI Workflow Marketplace</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#050816;
+color:white;
+overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+.bg{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+background:
+radial-gradient(circle at top left,#7c3aed33,transparent 30%),
+radial-gradient(circle at bottom right,#06b6d433,transparent 30%),
+#050816;
+z-index:-1;
+}
+
+/* NAVBAR */
+
+nav{
+width:100%;
+padding:20px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+backdrop-filter:blur(20px);
+background:rgba(5,8,22,.6);
+border-bottom:1px solid rgba(255,255,255,.05);
+z-index:999;
+}
+
+.logo-area{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.logo-area img{
+width:55px;
+height:55px;
+object-fit:contain;
+filter:drop-shadow(0 0 15px #7c3aed);
+}
+
+.logo-area h1{
+font-size:28px;
+font-weight:700;
+background:linear-gradient(90deg,#7c3aed,#06b6d4,#ec4899);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.nav-btn{
+padding:12px 22px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#7c3aed,#06b6d4);
+color:white;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+.nav-btn:hover{
+transform:translateY(-3px);
+}
+
+/* HERO */
+
+.hero{
+padding:90px 8%;
+text-align:center;
+}
+
+.badge{
+display:inline-block;
+padding:10px 22px;
+border-radius:999px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+color:#c084fc;
+margin-bottom:30px;
+font-size:14px;
+}
+
+.hero h2{
+font-size:70px;
+font-weight:800;
+line-height:1.1;
+margin-bottom:20px;
+background:linear-gradient(90deg,#ffffff,#c084fc,#06b6d4);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+max-width:800px;
+margin:auto;
+color:#cbd5e1;
+font-size:18px;
+line-height:1.8;
+}
+
+/* SEARCH */
+
+.search-wrap{
+margin-top:50px;
+display:flex;
+justify-content:center;
+}
+
+.search-box{
+width:100%;
+max-width:700px;
+position:relative;
+}
+
+.search-box input{
+width:100%;
+padding:22px 28px;
+padding-left:60px;
+border:none;
+outline:none;
+border-radius:20px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.08);
+color:white;
+font-size:17px;
+backdrop-filter:blur(20px);
+}
+
+.search-box input::placeholder{
+color:#94a3b8;
+}
+
+.search-icon{
+position:absolute;
+left:22px;
+top:20px;
+font-size:20px;
+color:#94a3b8;
+}
+
+/* CATEGORY */
+
+.categories{
+padding:20px 8%;
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.cat-btn{
+padding:12px 22px;
+border-radius:999px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+color:#cbd5e1;
+cursor:pointer;
+transition:.3s;
+}
+
+.cat-btn:hover,
+.cat-btn.active{
+background:linear-gradient(90deg,#7c3aed,#06b6d4);
+color:white;
+}
+
+/* GRID */
+
+.tools{
+padding:60px 8%;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+}
+
+/* CARD */
+
+.card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+border-radius:28px;
+padding:28px;
+backdrop-filter:blur(20px);
+transition:.4s;
+position:relative;
+overflow:hidden;
+}
+
+.card::before{
+content:'';
+position:absolute;
+width:200px;
+height:200px;
+background:radial-gradient(circle,#7c3aed55,transparent);
+top:-80px;
+right:-80px;
+}
+
+.card:hover{
+transform:translateY(-10px);
+border-color:#7c3aed;
+box-shadow:0 0 35px rgba(124,58,237,.3);
+}
+
+.top{
+display:flex;
+align-items:center;
+gap:18px;
+margin-bottom:20px;
+}
+
+.top img{
+width:70px;
+height:70px;
+border-radius:18px;
+background:white;
+padding:10px;
+object-fit:contain;
+}
+
+.info h3{
+font-size:22px;
+margin-bottom:5px;
+}
+
+.info span{
+font-size:13px;
+color:#c084fc;
+}
+
+.desc{
+color:#cbd5e1;
+line-height:1.7;
+margin-bottom:25px;
+font-size:15px;
+min-height:70px;
+}
+
+/* FEATURES */
+
+.features{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:25px;
+}
+
+.feature{
+padding:8px 14px;
+border-radius:999px;
+background:rgba(255,255,255,.06);
+font-size:12px;
+color:#cbd5e1;
+}
+
+/* BUTTONS */
+
+.buttons{
+display:flex;
+gap:12px;
+}
+
+.visit{
+flex:1;
+padding:14px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#7c3aed,#06b6d4);
+color:white;
+font-weight:600;
+cursor:pointer;
+text-decoration:none;
+text-align:center;
+}
+
+.save{
+padding:14px 18px;
+border:none;
+border-radius:14px;
+background:rgba(255,255,255,.08);
+color:white;
+cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+padding:50px 8%;
+text-align:center;
+color:#94a3b8;
+border-top:1px solid rgba(255,255,255,.08);
+margin-top:40px;
+}
+
+@media(max-width:768px){
+
+.hero h2{
+font-size:42px;
+}
+
+.logo-area h1{
+font-size:22px;
+}
+
+}
+
+</style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <h1>🚀 Creator Hub Pro</h1>
+<div class="bg"></div>
 
-    <input type="text" id="search" placeholder="Search tools...">
+<!-- NAVBAR -->
 
-    <div class="filters">
-      <button onclick="filterCategory('All')">All</button>
-      <button onclick="filterCategory('Chat')">Chat</button>
-      <button onclick="filterCategory('Writing')">Writing</button>
-      <button onclick="filterCategory('Image')">Image</button>
-      <button onclick="filterCategory('Video')">Video</button>
-      <button onclick="filterCategory('SEO')">SEO</button>
-    </div>
-  </header>
+<nav>
 
-  <!-- TOOLS -->
-  <div id="tools" class="grid"></div>
+<div class="logo-area">
 
-  <script src="script.js"></script>
+<img src="logo.png" alt="logo">
+
+<h1>Creator Hub Pro</h1>
+
+</div>
+
+<button class="nav-btn">
+Explore Workflows
+</button>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="badge">
+🔥 #1 AI Workflow Marketplace
+</div>
+
+<h2>
+Discover Powerful AI Workflows
+</h2>
+
+<p>
+Find the best AI workflows, automations, creator systems,
+business tools, prompt packs, and productivity stacks —
+all in one futuristic marketplace.
+</p>
+
+<div class="search-wrap">
+
+<div class="search-box">
+
+<div class="search-icon">🔍</div>
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search workflows, automations, tools..."
+>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CATEGORIES -->
+
+<section class="categories">
+
+<div class="cat-btn active" onclick="filterCategory('All')">All</div>
+<div class="cat-btn" onclick="filterCategory('Automation')">Automation</div>
+<div class="cat-btn" onclick="filterCategory('Content')">Content</div>
+<div class="cat-btn" onclick="filterCategory('Marketing')">Marketing</div>
+<div class="cat-btn" onclick="filterCategory('Coding')">Coding</div>
+<div class="cat-btn" onclick="filterCategory('Business')">Business</div>
+
+</section>
+
+<!-- TOOLS -->
+
+<section class="tools" id="toolsContainer">
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+© 2026 Creator Hub Pro — AI Workflow Marketplace
+
+</footer>
+
+<script>
+
+/* =========================
+SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://dpjmlasbomyleogiimmy.supabase.co";
+
+const SUPABASE_KEY =
+"YOUR_SUPABASE_PUBLIC_KEY";
+
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+/* =========================
+DEMO DATA
+========================= */
+
+const workflows = [
+
+{
+name:"YouTube Shorts Automation",
+category:"Content",
+url:"https://zapier.com",
+description:"Generate viral shorts automatically using AI scripts, voiceovers, and captions.",
+features:["TikTok","Shorts","AI Voice","Auto Upload"]
+},
+
+{
+name:"AI Client Outreach System",
+category:"Marketing",
+url:"https://make.com",
+description:"Automatically send personalized cold emails and follow-ups using AI.",
+features:["Email","Leads","CRM","Automation"]
+},
+
+{
+name:"AI Blog Writer",
+category:"Content",
+url:"https://writesonic.com",
+description:"Create SEO blog articles in seconds using AI prompts and automation.",
+features:["SEO","Blog","GPT","Keywords"]
+},
+
+{
+name:"AI Coding Assistant Stack",
+category:"Coding",
+url:"https://cursor.com",
+description:"Full AI coding workflow using Cursor AI, GitHub Copilot and automation.",
+features:["Coding","GPT-4","Dev","AI"]
+},
+
+{
+name:"Business AI Dashboard",
+category:"Business",
+url:"https://notion.so",
+description:"Manage your AI business workflows, CRM, clients and analytics.",
+features:["CRM","Analytics","Dashboard","AI"]
+},
+
+{
+name:"AI Video Factory",
+category:"Automation",
+url:"https://runwayml.com",
+description:"Create AI videos automatically for YouTube, Reels and TikTok.",
+features:["Video","AI","Reels","Content"]
+}
+
+];
+
+/* =========================
+LOGO FUNCTION
+========================= */
+
+function getLogo(url){
+
+let domain =
+new URL(url).hostname.replace("www.","");
+
+return `https://www.google.com/s2/favicons?sz=128&domain=${domain}`;
+
+}
+
+/* =========================
+RENDER CARDS
+========================= */
+
+function renderCards(data){
+
+const container =
+document.getElementById("toolsContainer");
+
+container.innerHTML = "";
+
+data.forEach(tool=>{
+
+container.innerHTML += `
+
+<div class="card">
+
+<div class="top">
+
+<img src="${getLogo(tool.url)}">
+
+<div class="info">
+
+<h3>${tool.name}</h3>
+
+<span>${tool.category}</span>
+
+</div>
+
+</div>
+
+<div class="desc">
+${tool.description}
+</div>
+
+<div class="features">
+
+${tool.features.map(f=>
+`<div class="feature">${f}</div>`
+).join("")}
+
+</div>
+
+<div class="buttons">
+
+<a
+href="${tool.url}"
+target="_blank"
+class="visit"
+>
+Open Workflow
+</a>
+
+<button class="save">
+⭐
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* =========================
+SEARCH
+========================= */
+
+document
+.getElementById("searchInput")
+.addEventListener("input",(e)=>{
+
+let value =
+e.target.value.toLowerCase();
+
+let filtered =
+workflows.filter(tool=>
+
+tool.name.toLowerCase().includes(value) ||
+
+tool.category.toLowerCase().includes(value) ||
+
+tool.description.toLowerCase().includes(value)
+
+);
+
+renderCards(filtered);
+
+});
+
+/* =========================
+CATEGORY FILTER
+========================= */
+
+function filterCategory(category){
+
+document.querySelectorAll(".cat-btn")
+.forEach(btn=>btn.classList.remove("active"));
+
+event.target.classList.add("active");
+
+if(category==="All"){
+
+renderCards(workflows);
+
+return;
+
+}
+
+let filtered =
+workflows.filter(
+tool=>tool.category===category
+);
+
+renderCards(filtered);
+
+}
+
+/* =========================
+INITIAL LOAD
+========================= */
+
+renderCards(workflows);
+
+</script>
 
 </body>
 </html>
-

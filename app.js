@@ -84,5 +84,32 @@ tool.category.toLowerCase().includes(value)
 renderTools(filtered);
 
 });
+async function trackClick(id,url){
+
+const tool =
+allTools.find(t => t.id === id);
+
+if(!tool) return;
+
+const newClicks =
+(tool.clicks || 0) + 1;
+
+const newTrending =
+(tool.trending_score || 0) + 1;
+
+await supabaseClient
+.from("tools")
+.update({
+
+clicks:newClicks,
+
+trending_score:newTrending
+
+})
+.eq("id",id);
+
+window.open(url,"_blank");
+
+}
 
 loadTools();

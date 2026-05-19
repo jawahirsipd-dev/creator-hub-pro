@@ -12,7 +12,7 @@ const { data,error } =
 await supabaseClient
 .from("tools")
 .select("*");
-
+.order("trending_score",{ascending:false});
 if(error){
 
 console.log(error);

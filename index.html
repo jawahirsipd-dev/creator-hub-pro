@@ -1,80 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Creator Hub Pro</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+/>
 
-<link rel="stylesheet" href="style.css">
+<title>
+Creator Hub Pro — Best AI Tools Platform
+</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet"
+/>
+
+<link rel="stylesheet" href="style.css"/>
+
 </head>
 
 <body>
 
-<!-- NAVBAR -->
 <header class="navbar">
-<div class="logo">🚀 Creator Hub Pro</div>
 
-<nav>
-<a href="#">Products</a>
-<a href="#">Solutions</a>
+<div class="logo">
+🚀 Creator Hub Pro
+</div>
+
+<nav class="nav-links">
+
+<a href="#">Tools</a>
+<a href="#">Trending</a>
+<a href="#">Blog</a>
 <a href="#">Pricing</a>
-<a href="#">Login</a>
-<button class="btn">Sign up</button>
+
+<button class="btn btn-primary">
+Get Started
+</button>
+
 </nav>
+
 </header>
 
-<!-- HERO -->
 <section class="hero">
-<h1>Your tools. Your rules. Any AI.</h1>
+
+<h1>
+
+Discover The Best
+<span class="gradient-text">
+AI Tools
+</span>
+
+For Creators
+
+</h1>
 
 <p>
-Discover AI tools for creators, developers and marketers.
+
+Explore powerful AI tools for creators,
+developers, marketers and startups.
+
 </p>
 
-<div class="buttons">
-<button class="primary">Start Free</button>
-<button class="secondary">Explore Tools</button>
+<div class="hero-buttons">
+
+<button class="btn btn-primary">
+Explore Tools
+</button>
+
+<button class="btn btn-secondary">
+Trending Tools
+</button>
+
 </div>
+
 </section>
 
-<!-- STATS -->
 <section class="stats">
-<div>450K+ Users</div>
-<div>9000+ Tools</div>
-<div>3M+ Actions</div>
-</section>
 
-<!-- FEATURES -->
-<section class="features">
-
-<div class="feature">
-<h2>All AI Tools in One Place</h2>
-<p>Find best AI tools instantly.</p>
+<div class="stat-card">
+<h2>1000+</h2>
+<p>AI Tools</p>
 </div>
 
-<div class="feature">
-<h2>Boost Productivity</h2>
-<p>Automate your workflow easily.</p>
+<div class="stat-card">
+<h2>100K+</h2>
+<p>Monthly Users</p>
 </div>
 
-<div class="feature">
-<h2>Grow Faster</h2>
-<p>Built for creators & startups.</p>
+<div class="stat-card">
+<h2>50+</h2>
+<p>Categories</p>
 </div>
 
 </section>
 
-<!-- CTA -->
+<section class="search-section">
+
+<input
+type="text"
+id="searchInput"
+class="search-box"
+placeholder="Search AI tools..."
+/>
+
+</section>
+
+<div class="filters">
+
+<button class="filter-btn active">
+All
+</button>
+
+<button class="filter-btn">
+Writing
+</button>
+
+<button class="filter-btn">
+Image
+</button>
+
+<button class="filter-btn">
+Video
+</button>
+
+<button class="filter-btn">
+Coding
+</button>
+
+<button class="filter-btn">
+SEO
+</button>
+
+</div>
+
+<section
+class="tools-grid"
+id="toolsContainer"
+>
+
+</section>
+
 <section class="cta">
-<h2>Start building with AI today</h2>
-<button>Get Started</button>
+
+<div class="cta-box">
+
+<h2>
+Grow Faster With AI
+</h2>
+
+<p>
+
+Find powerful AI platforms to scale your business.
+
+</p>
+
+<button class="btn btn-secondary">
+Start Free
+</button>
+
+</div>
+
 </section>
 
-<!-- FOOTER -->
 <footer>
+
 © 2026 Creator Hub Pro
+
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase.js"></script>
+
+<script src="app.js"></script>
 
 </body>
 </html>

@@ -1,189 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AI Workflow Marketplace SaaS</title>
+<title>Creator Hub Pro</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-body{
-margin:0;
-font-family:Poppins;
-background:linear-gradient(135deg,#0f0f1a,#111827);
-color:white;
-}
-
-/* HEADER */
-header{
-padding:20px;
-text-align:center;
-font-size:24px;
-font-weight:700;
-background:#111827;
-}
-
-/* LAYOUT */
-.container{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:15px;
-padding:20px;
-}
-
-/* CARD */
-.card{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.1);
-padding:15px;
-border-radius:16px;
-backdrop-filter:blur(10px);
-transition:0.3s;
-position:relative;
-}
-
-.card:hover{
-transform:translateY(-5px);
-border-color:#7c3aed;
-}
-
-.title{font-weight:600;font-size:16px;}
-.meta{font-size:12px;color:#aaa;margin-top:5px;}
-.tools{font-size:12px;color:#c084fc;margin-top:5px;}
-.steps{font-size:12px;color:#ccc;margin-top:8px;}
-
-/* INPUT SECTION */
-.form{
-padding:20px;
-display:grid;
-gap:10px;
-max-width:600px;
-margin:auto;
-}
-
-input,textarea,select{
-padding:10px;
-border-radius:10px;
-border:none;
-background:#1f2937;
-color:white;
-}
-
-button{
-padding:10px;
-border:none;
-border-radius:10px;
-background:#7c3aed;
-color:white;
-cursor:pointer;
-}
-
-/* SEARCH */
-.searchbar{
-text-align:center;
-padding:10px;
-}
-
-.searchbar input{
-width:300px;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>🚀 AI Workflow Marketplace SaaS</header>
+<!-- NAVBAR -->
+<header class="navbar">
+<div class="logo">🚀 Creator Hub Pro</div>
 
-<!-- CREATE WORKFLOW -->
-<div class="form">
-<input id="name" placeholder="Workflow Name">
-<input id="category" placeholder="Category (Chat, SEO, Video)">
-<textarea id="steps" placeholder="Steps (comma separated)"></textarea>
-<textarea id="tools" placeholder="Tools (comma separated)"></textarea>
-<button onclick="addWorkflow()">➕ Add Workflow</button>
+<nav>
+<a href="#">Products</a>
+<a href="#">Solutions</a>
+<a href="#">Pricing</a>
+<a href="#">Login</a>
+<button class="btn">Sign up</button>
+</nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+<h1>Your tools. Your rules. Any AI.</h1>
+
+<p>
+Discover AI tools for creators, developers and marketers.
+</p>
+
+<div class="buttons">
+<button class="primary">Start Free</button>
+<button class="secondary">Explore Tools</button>
+</div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+<div>450K+ Users</div>
+<div>9000+ Tools</div>
+<div>3M+ Actions</div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+
+<div class="feature">
+<h2>All AI Tools in One Place</h2>
+<p>Find best AI tools instantly.</p>
 </div>
 
-<!-- SEARCH -->
-<div class="searchbar">
-<input id="search" placeholder="Search workflows..." oninput="render()" />
+<div class="feature">
+<h2>Boost Productivity</h2>
+<p>Automate your workflow easily.</p>
 </div>
 
-<!-- LIST -->
-<div class="container" id="list"></div>
-
-<script>
-
-// 🔥 SUPABASE
-const SUPABASE_URL = "https://dpjmlasbomyleogiimmy.supabase.co";
-const SUPABASE_KEY = "YOUR_SUPABASE_ANON_KEY";
-
-const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-let DATA = [];
-
-// LOAD DATA
-async function load(){
-let {data} = await client.from("workflows").select("*");
-DATA = data || [];
-render();
-}
-
-// ADD WORKFLOW
-async function addWorkflow(){
-
-let name = document.getElementById("name").value;
-let category = document.getElementById("category").value;
-let steps = document.getElementById("steps").value;
-let tools = document.getElementById("tools").value;
-
-await client.from("workflows").insert([{
-name,
-category,
-steps,
-tools
-}]);
-
-load();
-}
-
-// RENDER
-function render(){
-
-let search = document.getElementById("search").value.toLowerCase();
-
-let filtered = DATA.filter(w =>
-w.name.toLowerCase().includes(search)
-);
-
-let list = document.getElementById("list");
-list.innerHTML = "";
-
-filtered.forEach(w => {
-
-list.innerHTML += `
-<div class="card">
-<div class="title">${w.name}</div>
-<div class="meta">📌 ${w.category}</div>
-
-<div class="steps">
-<b>Steps:</b><br>${w.steps}
+<div class="feature">
+<h2>Grow Faster</h2>
+<p>Built for creators & startups.</p>
 </div>
 
-<div class="tools">
-<b>Tools:</b> ${w.tools}
-</div>
-</div>
-`;
-});
-}
+</section>
 
-load();
+<!-- CTA -->
+<section class="cta">
+<h2>Start building with AI today</h2>
+<button>Get Started</button>
+</section>
 
-</script>
+<!-- FOOTER -->
+<footer>
+© 2026 Creator Hub Pro
+</footer>
 
 </body>
 </html>

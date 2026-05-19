@@ -50,13 +50,12 @@ ${tool.category}
 
 <p>${tool.description}</p>
 
-<a
-href="${tool.url}"
-target="_blank"
+<button
 class="visit-btn"
+onclick="trackClick('${tool.id}','${tool.url}')"
 >
 Visit Tool
-</a>
+</button>
 
 </div>
 

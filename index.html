@@ -7,66 +7,91 @@
 <title>Creator Hub Pro — AI Workflow Marketplace</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-body {
-  margin: 0;
-  font-family: Poppins, sans-serif;
-  background: #0f0f1a;
-  color: white;
+body{
+margin:0;
+font-family:Poppins;
+background:linear-gradient(135deg,#0f0f1a,#15152a);
+color:white;
 }
 
-header {
-  padding: 20px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: 700;
-  background: #15152a;
+/* HERO */
+.hero{
+padding:40px 20px;
+text-align:center;
+}
+.hero h1{
+font-size:42px;
+background:linear-gradient(90deg,#7c3aed,#06b6d4,#ec4899);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+.hero p{
+color:#bbb;
+margin-top:10px;
 }
 
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 20px;
+/* SEARCH + FILTER */
+.controls{
+display:flex;
+gap:10px;
+justify-content:center;
+flex-wrap:wrap;
+padding:10px 20px;
 }
 
-.card {
-  background: #1c1c33;
-  padding: 15px;
-  border-radius: 16px;
-  transition: 0.3s;
-  cursor: pointer;
+input,select{
+padding:12px;
+border-radius:10px;
+border:none;
+outline:none;
+background:#1c1c33;
+color:white;
 }
 
-.card:hover {
-  transform: scale(1.05);
-  background: #252547;
+/* GRID */
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+padding:20px;
 }
 
-.logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+/* CARD */
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.1);
+padding:15px;
+border-radius:16px;
+transition:0.3s;
+position:relative;
+}
+.card:hover{
+transform:translateY(-5px);
+border-color:#7c3aed;
 }
 
-.title {
-  font-size: 16px;
-  font-weight: 600;
+.logo{
+width:40px;
+height:40px;
+border-radius:10px;
+margin-bottom:10px;
 }
 
-.category {
-  font-size: 12px;
-  color: #aaa;
-}
+.title{font-weight:600;}
+.category{font-size:12px;color:#aaa;}
+.desc{font-size:12px;color:#ccc;margin-top:5px;}
 
-.desc {
-  font-size: 12px;
-  margin-top: 5px;
-  color: #ccc;
+/* HEART */
+.heart{
+position:absolute;
+top:10px;
+right:10px;
+cursor:pointer;
+font-size:18px;
 }
 </style>
 
@@ -74,59 +99,98 @@ header {
 
 <body>
 
-<header>🚀 AI Workflow Marketplace</header>
+<div class="hero">
+<h1>🚀 Creator Hub Pro</h1>
+<p>AI Workflow Marketplace — Find & Launch Tools Faster</p>
+</div>
+
+<div class="controls">
+<input id="search" placeholder="Search tools..." oninput="render()"/>
+<select id="filter" onchange="render()">
+<option value="All">All</option>
+<option value="Chat">Chat</option>
+<option value="Writing">Writing</option>
+<option value="Image">Image</option>
+<option value="Video">Video</option>
+<option value="SEO">SEO</option>
+<option value="Coding">Coding</option>
+<option value="Automation">Automation</option>
+</select>
+</div>
 
 <div class="container" id="cards"></div>
 
 <script>
-// ✅ SUPABASE CONFIG
 const SUPABASE_URL = "https://dpjmlasbomyleogiimmy.supabase.co";
-const SUPABASE_KEY = "YOUR_SUPABASE_ANON_KEY"; // replace this
+const SUPABASE_KEY = "YOUR_SUPABASE_ANON_KEY";
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ✅ LOGO FUNCTION (auto fetch from domain)
-function getLogo(url) {
-  try {
-    let domain = new URL(url).hostname.replace("www.", "");
-    return `https://img.logo.dev/${domain}?token=demo`;
-  } catch (e) {
-    return "https://via.placeholder.com/40";
-  }
+let DATA = [];
+let favorites = JSON.parse(localStorage.getItem("fav")) || [];
+
+/* LOGO */
+function getLogo(url){
+try{
+let domain = new URL(url).hostname.replace("www.","");
+return `https://img.logo.dev/${domain}?token=demo`;
+}catch{
+return "https://via.placeholder.com/40";
+}
 }
 
-// ✅ LOAD DATA
-async function loadWorkflows() {
-  const { data, error } = await supabase.from("tools").select("*");
-
-  if (error) {
-    console.log("Supabase Error:", error);
-    return;
-  }
-
-  const container = document.getElementById("cards");
-  container.innerHTML = "";
-
-  data.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-      <img class="logo" src="${getLogo(item.url)}" />
-      <div class="title">${item.name}</div>
-      <div class="category">${item.category}</div>
-      <div class="desc">${item.description}</div>
-    `;
-
-    card.onclick = () => {
-      window.open(item.url, "_blank");
-    };
-
-    container.appendChild(card);
-  });
+/* FAVORITE */
+function toggleFav(id){
+if(favorites.includes(id)){
+favorites = favorites.filter(x=>x!==id);
+}else{
+favorites.push(id);
+}
+localStorage.setItem("fav",JSON.stringify(favorites));
+render();
 }
 
-loadWorkflows();
+/* LOAD */
+async function load(){
+const {data} = await supabase.from("tools").select("*");
+DATA = data;
+render();
+}
+
+/* RENDER */
+function render(){
+const search = document.getElementById("search").value.toLowerCase();
+const filter = document.getElementById("filter").value;
+
+let filtered = DATA.filter(item=>{
+let matchSearch = item.name.toLowerCase().includes(search);
+let matchFilter = filter==="All" || item.category===filter;
+return matchSearch && matchFilter;
+});
+
+const container = document.getElementById("cards");
+container.innerHTML="";
+
+filtered.forEach(item=>{
+
+const isFav = favorites.includes(item.id);
+
+container.innerHTML += `
+<div class="card" onclick="window.open('${item.url}','_blank')">
+<div class="heart" onclick="event.stopPropagation();toggleFav('${item.id}')">
+${isFav ? "❤️" : "🤍"}
+</div>
+
+<img class="logo" src="${getLogo(item.url)}"/>
+<div class="title">${item.name}</div>
+<div class="category">${item.category}</div>
+<div class="desc">${item.description}</div>
+</div>
+`;
+});
+}
+
+load();
 </script>
 
 </body>

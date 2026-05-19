@@ -339,3 +339,11 @@ padding:20px;
 }
 
 }
+.trending-badge{
+font-size:12px;
+background:#ef4444;
+padding:6px 10px;
+border-radius:999px;
+margin-left:10px;
+vertical-align:middle;
+}

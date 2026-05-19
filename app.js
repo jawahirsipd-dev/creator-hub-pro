@@ -46,7 +46,21 @@ class="tool-logo"
 ${tool.category}
 </div>
 
-<h3>${tool.name}</h3>
+<h3>
+
+${tool.name}
+
+${tool.trending_score > 20 ?
+
+`<span class="trending-badge">
+🔥 Trending
+</span>`
+
+:
+
+""}
+
+</h3>
 
 <p>${tool.description}</p>
 

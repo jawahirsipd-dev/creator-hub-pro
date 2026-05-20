@@ -26,7 +26,7 @@ output.innerHTML =
 const response =
 await fetch(
 
-"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=YOUR_GEMINI_API_KEY",
+"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyAd4sPxJ2lMtrkCjmJ41QUl0KeFD2JU4ZE",
 
 {
 

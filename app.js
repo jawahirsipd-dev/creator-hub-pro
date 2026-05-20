@@ -15,7 +15,7 @@ button.addEventListener("click", async () => {
 
   try {
     const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDSAUlHy8c0vHS2qwRA3e8XZlgOIY3r3q8",
+      "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyCPW9L7TkfxiOoSYTdN68x0d0z79pI9fYU",
       {
         method: "POST",
         headers: {

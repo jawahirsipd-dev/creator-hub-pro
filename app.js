@@ -1,4 +1,4 @@
-const API_KEY = "AIzaSyCOnvm6qLAzDwrZVxcX9pHkxrw5WN1ed9I";  
+const API_KEY = "AIzaSyCs8gL30SIVkjbx_ho_gTIR_0uHm-9or24";  
 
 const MODEL = "gemini-1.5-flash";
 
@@ -18,7 +18,7 @@ button.addEventListener("click", async () => {
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1/models/${MODEL}:generateContent?key=${API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1/models/${MODEL}:generateContent?key=${AIzaSyCs8gL30SIVkjbx_ho_gTIR_0uHm-9or24}`,
       {
         method: "POST",
         headers: {

@@ -1,11 +1,9 @@
+
 const button = document.getElementById("generateBtn");
-
 const promptInput = document.getElementById("promptInput");
-
 const output = document.getElementById("output");
 
 button.addEventListener("click", async () => {
-
   const prompt = promptInput.value.trim();
 
   if (!prompt) {
@@ -16,16 +14,13 @@ button.addEventListener("click", async () => {
   output.innerHTML = "Generating AI workflow...";
 
   try {
-
     const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDCaGX2gcgWzTXjL_lODF6usSgHFn7dUNI",
+      "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBGwhTi-CVh1mSHMQiU5yIt59APwj7Ykcc",
       {
         method: "POST",
-
         headers: {
           "Content-Type": "application/json"
         },
-
         body: JSON.stringify({
           contents: [
             {
@@ -53,39 +48,22 @@ Include:
 
     const data = await response.json();
 
-    console.log(data);
-
-    // HANDLE API ERRORS
     if (data.error) {
-
-      output.innerHTML =
-        "Gemini API Error: " + data.error.message;
-
+      output.innerHTML = "Gemini API Error: " + data.error.message;
       return;
     }
 
-    // SAFE RESPONSE EXTRACTION
-    const text =
-      data.candidates?.[0]?.content?.parts?.[0]?.text;
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!text) {
-
-      output.innerHTML =
-        "No AI response received.";
-
+      output.innerHTML = "No AI response received.";
       return;
     }
 
-    output.innerHTML =
-      text.replace(/\n/g, "<br>");
+    output.innerHTML = text.replace(/\n/g, "<br>");
 
   } catch (error) {
-
     console.log(error);
-
-    output.innerHTML =
-      "Something went wrong.";
-
+    output.innerHTML = "Something went wrong.";
   }
-
 });

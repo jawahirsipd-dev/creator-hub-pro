@@ -1,4 +1,4 @@
-const API_KEY = "YOUR_NEW_KEY";
+const API_KEY = "AIzaSyCOnvm6qLAzDwrZVxcX9pHkxrw5WN1ed9I";  
 
 const MODEL = "gemini-1.5-flash";
 
@@ -18,7 +18,7 @@ button.addEventListener("click", async () => {
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1/models/${MODEL}:generateContent?key=${AIzaSyCOnvm6qLAzDwrZVxcX9pHkxrw5WN1ed9I}`,
+      `https://generativelanguage.googleapis.com/v1/models/${MODEL}:generateContent?key=${API_KEY}`,
       {
         method: "POST",
         headers: {
@@ -55,7 +55,7 @@ Include:
       throw new Error(data.error?.message || "API request failed");
     }
 
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
     output.innerHTML = text
       ? text.replace(/\n/g, "<br>")

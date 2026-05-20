@@ -1,129 +1,90 @@
-const toolsContainer =
-document.getElementById("toolsContainer");
+const button =
+document.getElementById("generateBtn");
 
-const searchInput =
-document.getElementById("searchInput");
+const promptInput =
+document.getElementById("promptInput");
 
-let allTools = [];
+const output =
+document.getElementById("output");
 
-async function loadTools(){
+button.addEventListener("click", async ()=>{
 
-const { data,error } =
-await supabaseClient
-.from("tools")
-.select("*");
-.order("trending_score",{ascending:false});
-if(error){
+const prompt =
+promptInput.value;
 
-console.log(error);
+if(!prompt){
+
+alert("Enter a prompt");
 
 return;
 
 }
 
-allTools = data;
+output.innerHTML =
+"Generating AI workflow...";
 
-renderTools(data);
+const response =
+await fetch(
 
-}
+"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=YOUR_GEMINI_API_KEY",
 
-function renderTools(tools){
+{
 
-toolsContainer.innerHTML = "";
+method:"POST",
 
-tools.forEach(tool => {
+headers:{
+"Content-Type":"application/json"
+},
 
-toolsContainer.innerHTML += `
+body:JSON.stringify({
 
-<div class="tool-card">
+contents:[{
 
-<img
-src="${tool.logo_url}"
-class="tool-logo"
->
+parts:[{
 
-<div class="tool-category">
-${tool.category}
-</div>
+text:
 
-<h3>
+`You are an AI automation architect.
 
-${tool.name}
+Generate a detailed AI workflow system for:
 
-${tool.trending_score > 20 ?
+${prompt}
 
-`<span class="trending-badge">
-🔥 Trending
-</span>`
+Include:
+- workflow steps
+- tools needed
+- automation ideas
+- AI agents required
+- monetization ideas`
 
-:
+}]
 
-""}
+}]
 
-</h3>
-
-<p>${tool.description}</p>
-
-<button
-class="visit-btn"
-onclick="trackClick('${tool.id}','${tool.url}')"
->
-Visit Tool
-</button>
-
-</div>
-
-`;
-
-});
+})
 
 }
-
-searchInput.addEventListener("input",(e)=>{
-
-const value =
-e.target.value.toLowerCase();
-
-const filtered =
-allTools.filter(tool =>
-
-tool.name.toLowerCase().includes(value)
-
-||
-
-tool.category.toLowerCase().includes(value)
 
 );
 
-renderTools(filtered);
+const data =
+await response.json();
+
+const text =
+data.candidates[0]
+.content.parts[0].text;
+
+output.innerHTML =
+text.replace(/\n/g,"<br>");
+
+await supabase
+.from("agents")
+.insert([{
+
+prompt:prompt,
+
+response:text
+
+}]);
 
 });
-async function trackClick(id,url){
-
-const tool =
-allTools.find(t => t.id === id);
-
-if(!tool) return;
-
-const newClicks =
-(tool.clicks || 0) + 1;
-
-const newTrending =
-(tool.trending_score || 0) + 1;
-
-await supabaseClient
-.from("tools")
-.update({
-
-clicks:newClicks,
-
-trending_score:newTrending
-
-})
-.eq("id",id);
-
-window.open(url,"_blank");
-
-}
-
-loadTools();

@@ -11,34 +11,45 @@ content="width=device-width, initial-scale=1.0"
 />
 
 <title>
-Creator Hub Pro — Best AI Tools Platform
+Creator Hub AI Agent Builder
 </title>
 
 <link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
 rel="stylesheet"
 />
 
 <link rel="stylesheet" href="style.css"/>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 
 <body>
 
+<!-- NAVBAR -->
+
 <header class="navbar">
 
 <div class="logo">
-🚀 Creator Hub Pro
+🤖 Creator Hub AI
 </div>
 
-<nav class="nav-links">
+<nav>
 
-<a href="#">Tools</a>
-<a href="#">Trending</a>
-<a href="#">Blog</a>
-<a href="#">Pricing</a>
+<a href="#">
+Home
+</a>
 
-<button class="btn btn-primary">
+<a href="#">
+Agents
+</a>
+
+<a href="#">
+Pricing
+</a>
+
+<button class="nav-btn">
 Get Started
 </button>
 
@@ -46,134 +57,56 @@ Get Started
 
 </header>
 
+<!-- HERO -->
+
 <section class="hero">
 
 <h1>
 
-Discover The Best
-<span class="gradient-text">
-AI Tools
+Build Powerful
+<span class="gradient">
+AI Agents
 </span>
 
-For Creators
+With One Prompt
 
 </h1>
 
 <p>
 
-Explore powerful AI tools for creators,
-developers, marketers and startups.
+Describe your idea and let AI generate
+automation workflows instantly.
 
 </p>
 
-<div class="hero-buttons">
+</section>
 
-<button class="btn btn-primary">
-Explore Tools
+<!-- AI BOX -->
+
+<section class="generator-box">
+
+<textarea
+id="promptInput"
+placeholder="Example: Build a YouTube automation AI system..."
+></textarea>
+
+<button id="generateBtn">
+Generate AI Workflow
 </button>
 
-<button class="btn btn-secondary">
-Trending Tools
-</button>
+</section>
+
+<!-- OUTPUT -->
+
+<section class="output-section">
+
+<div id="output">
+
+AI workflow will appear here...
 
 </div>
 
 </section>
-
-<section class="stats">
-
-<div class="stat-card">
-<h2>1000+</h2>
-<p>AI Tools</p>
-</div>
-
-<div class="stat-card">
-<h2>100K+</h2>
-<p>Monthly Users</p>
-</div>
-
-<div class="stat-card">
-<h2>50+</h2>
-<p>Categories</p>
-</div>
-
-</section>
-
-<section class="search-section">
-
-<input
-type="text"
-id="searchInput"
-class="search-box"
-placeholder="Search AI tools..."
-/>
-
-</section>
-
-<div class="filters">
-
-<button class="filter-btn active">
-All
-</button>
-
-<button class="filter-btn">
-Writing
-</button>
-
-<button class="filter-btn">
-Image
-</button>
-
-<button class="filter-btn">
-Video
-</button>
-
-<button class="filter-btn">
-Coding
-</button>
-
-<button class="filter-btn">
-SEO
-</button>
-
-</div>
-
-<section
-class="tools-grid"
-id="toolsContainer"
->
-
-</section>
-
-<section class="cta">
-
-<div class="cta-box">
-
-<h2>
-Grow Faster With AI
-</h2>
-
-<p>
-
-Find powerful AI platforms to scale your business.
-
-</p>
-
-<button class="btn btn-secondary">
-Start Free
-</button>
-
-</div>
-
-</section>
-
-<footer>
-
-© 2026 Creator Hub Pro
-
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase.js"></script>
 

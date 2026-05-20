@@ -18,7 +18,7 @@ button.addEventListener("click", async () => {
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1/models/${MODEL}:generateContent?key=${API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1/models/${MODEL}:generateContent?key=${AIzaSyCOnvm6qLAzDwrZVxcX9pHkxrw5WN1ed9I}`,
       {
         method: "POST",
         headers: {

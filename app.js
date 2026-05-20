@@ -1,13 +1,12 @@
 const API_KEY = "YOUR_NEW_KEY";
 
-const MODEL = "models/gemini-2.5-flash";
+const MODEL = "gemini-1.5-flash";
 
 const button = document.getElementById("generateBtn");
 const promptInput = document.getElementById("promptInput");
 const output = document.getElementById("output");
 
 button.addEventListener("click", async () => {
-
   const prompt = promptInput.value.trim();
 
   if (!prompt) {
@@ -18,9 +17,8 @@ button.addEventListener("click", async () => {
   output.innerHTML = "Generating AI workflow...";
 
   try {
-
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1/${MODEL}:generateContent?key=${AIzaSyCOnvm6qLAzDwrZVxcX9pHkxrw5WN1ed9I}`,
+      `https://generativelanguage.googleapis.com/v1/models/${MODEL}:generateContent?key=${API_KEY}`,
       {
         method: "POST",
         headers: {
@@ -53,23 +51,18 @@ Include:
 
     const data = await response.json();
 
-    if (data.error) {
-      output.innerHTML = "Error: " + data.error.message;
-      return;
+    if (!response.ok) {
+      throw new Error(data.error?.message || "API request failed");
     }
 
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
-    if (!text) {
-      output.innerHTML = "No response received.";
-      return;
-    }
-
-    output.innerHTML = text.replace(/\n/g, "<br>");
+    output.innerHTML = text
+      ? text.replace(/\n/g, "<br>")
+      : "No response received.";
 
   } catch (err) {
-    console.log(err);
-    output.innerHTML = "Request failed.";
+    console.error(err);
+    output.innerHTML = "Error: " + err.message;
   }
-
 });

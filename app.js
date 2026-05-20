@@ -7,14 +7,14 @@ document.getElementById("promptInput");
 const output =
 document.getElementById("output");
 
-button.addEventListener("click", async ()=>{
+button.addEventListener("click", async () => {
 
 const prompt =
-promptInput.value;
+promptInput.value.trim();
 
 if(!prompt){
 
-alert("Enter a prompt");
+alert("Please enter a prompt");
 
 return;
 
@@ -23,10 +23,11 @@ return;
 output.innerHTML =
 "Generating AI workflow...";
 
-const response =
-await fetch(
+try{
 
-"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyAd4sPxJ2lMtrkCjmJ41QUl0KeFD2JU4ZE",
+const response = await fetch(
+
+"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=YOUR_GEMINI_API_KEY",
 
 {
 
@@ -44,18 +45,18 @@ parts:[{
 
 text:
 
-`You are an AI automation architect.
+`You are an expert AI automation architect.
 
-Generate a detailed AI workflow system for:
+Create a professional AI workflow system for:
 
 ${prompt}
 
 Include:
-- workflow steps
-- tools needed
-- automation ideas
-- AI agents required
-- monetization ideas`
+1. Workflow steps
+2. AI tools needed
+3. Automation strategy
+4. Monetization ideas
+5. Recommended AI agents`
 
 }]
 
@@ -70,9 +71,12 @@ Include:
 const data =
 await response.json();
 
+console.log(data);
+
 const text =
 data.candidates[0]
-.content.parts[0].text;
+.content.parts[0]
+.text;
 
 output.innerHTML =
 text.replace(/\n/g,"<br>");
@@ -86,5 +90,14 @@ prompt:prompt,
 response:text
 
 }]);
+
+}catch(error){
+
+console.log(error);
+
+output.innerHTML =
+"Error generating workflow.";
+
+}
 
 });
